@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odpočítavanie do konca Ficovej vlády</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #1e1e1e, #333, #121212);
+            color: white;
+            padding: 50px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        #countdown {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px 30px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        }
+        #hlaska {
+            font-style: italic;
+            font-size: 22px;
+            color: #ffcc00;
+            margin-top: 20px;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .fade {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Odpočítavanie do konca Ficovej vlády</h1>
+    <div id="countdown"></div>
+    <div id="hlaska"></div>
+
+    <script>
+        function updateCountdown() {
+            const koniecVlady = new Date("October 29, 2027 23:59:59").getTime();
+            const teraz = new Date().getTime();
+            const zostava = koniecVlady - teraz;
+
+            if (zostava <= 0) {
+                document.getElementById("countdown").innerHTML = "🎉 KONEČNE KONIEC! 🎉";
+                document.getElementById("hlaska").innerHTML = "Ideme oslavovať! 🍾";
+                return;
+            }
+
+            const dni = Math.floor(zostava / (1000 * 60 * 60 * 24));
+            const hodiny = Math.floor((zostava % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minuty = Math.floor((zostava % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("countdown").innerHTML = `${dni} dní, ${hodiny} hodín, ${minuty} minút`;
+
+            const hlasky = [
+                "Vydrž, už to nebude naveky!",
+                "Čas beží... aj keď pomaly.",
+                "Na všetko raz príde koniec!",
+                "Zvládli sme horšie, zvládneme aj toto.",
+                "Občianska trpezlivosť level 9000.",
+                "Počítame každú sekundu... doslova.",
+                "Hlavne, že vieme, kedy to skončí!",
+                "O chvíľu si povieme: 'To už prešlo?'",
+                "Veríš na zázraky? Možno to skončí skôr!",
+                "Možno to vydržíme bez psychickej ujmy."
+            ];
+
+            const hlaskaElement = document.getElementById("hlaska");
+            hlaskaElement.classList.add("fade");
+
+            setTimeout(() => {
+                hlaskaElement.innerHTML = hlasky[Math.floor(Math.random() * hlasky.length)];
+                hlaskaElement.classList.remove("fade");
+            }, 500);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+    </script>
+
+</body>
+</html>
